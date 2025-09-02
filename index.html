@@ -1,1 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vitals Live — Demo de Venta</title>
+  <meta name="description" content="Demo de venta: signos vitales en tiempo real con la cámara. Producto para bienestar (no médico)." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/logo.svg" alt="Logo" class="logo"/>
+      <span>Vitals Live</span>
+    </div>
+    <nav class="nav">
+      <a href="presentation.html" class="link">Presentación</a>
+      <a href="#casos" class="link">Casos de uso</a>
+      <a href="#precios" class="link">Precios</a>
+      <button id="btnOpenDemo" class="primary">Demo en vivo</button>
+    </nav>
+  </header>
 
+  <main>
+    <section class="hero">
+      <h1>Signos vitales <span class="grad">en tiempo real</span> usando tu cámara</h1>
+      <p class="sub">Muestra el “wow” en segundos. Sin wearables, sin cables, directamente desde el navegador. <strong>Uso de bienestar (no médico).</strong></p>
+      <div class="cta">
+        <button id="btnOpenDemo2" class="primary xl">Iniciar demo en vivo</button>
+        <a class="ghost xl" href="presentation.html">Ver presentación</a>
+      </div>
+      <ul class="bullets">
+        <li>Funciona en iPhone y Android (HTTPS/localhost)</li>
+        <li>Datos procesados en el dispositivo</li>
+        <li>Enseña el producto sin revelar todo el producto</li>
+      </ul>
+    </section>
+
+    <section class="features">
+      <div class="feature">
+        <h3>Medición instantánea</h3>
+        <p>Extrae pulso y nivel de estrés estimado desde microcambios de color (rPPG).</p>
+      </div>
+      <div class="feature">
+        <h3>Privacidad por diseño</h3>
+        <p> Procesamiento en el dispositivo. No subimos el video al servidor.</p>
+      </div>
+      <div class="feature">
+        <h3>Presentación comercial</h3>
+        <p>Incluye un pitch listo para inversores y clientes, y un demo controlado.</p>
+      </div>
+      <div class="feature">
+        <h3>Escalable</h3>
+        <p>Extensible a métricas “Pro” (RR, HRV, presión estimada, etc.).</p>
+      </div>
+    </section>
+
+    <section id="casos" class="cases">
+      <h2>Casos de uso</h2>
+      <div class="cards">
+        <div class="card">
+          <h4>Wellness & Fitness</h4>
+          <p>Checks rápidos antes/después de entrenar. Respiración guiada.</p>
+        </div>
+        <div class="card">
+          <h4>Telebienestar</h4>
+          <p>Seguimiento no invasivo en sesiones remotas.</p>
+        </div>
+        <div class="card">
+          <h4>Empresas</h4>
+          <p>Programas de bienestar: estrés y recuperación.</p>
+        </div>
+        <div class="card">
+          <h4>Investigación UX</h4>
+          <p>Métricas fisiológicas para test A/B en laboratorio.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="precios" class="pricing">
+      <h2>Precios</h2>
+      <div class="tiers">
+        <div class="tier">
+          <div class="badge">Demo</div>
+          <h3>Gratis</h3>
+          <ul>
+            <li>Pulso (BPM)</li>
+            <li>Estrés estimado</li>
+            <li>Sin instalación (web)</li>
+          </ul>
+          <button class="primary" id="btnOpenDemo3">Probar ahora</button>
+        </div>
+        <div class="tier">
+          <div class="badge pro">Pro</div>
+          <h3>A medida</h3>
+          <ul>
+            <li>Respiración (RPM) <span class="lock">Bloqueado</span></li>
+            <li>HRV (RMSSD) <span class="lock">Bloqueado</span></li>
+            <li>SDK e integración</li>
+            <li>Soporte y SLAs</li>
+          </ul>
+          <a class="ghost" href="presentation.html">Solicitar propuesta</a>
+        </div>
+      </div>
+      <p class="disclaimer">Esta demo es para bienestar. No brinda diagnóstico clínico ni sustituye dispositivos médicos.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>© 2025 Vitals Live · Demo de venta · Uso no médico</small>
+  </footer>
+
+  <!-- Demo Modal -->
+  <div id="demoModal" class="modal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="demoTitle">
+      <button id="btnCloseDemo" class="close" aria-label="Cerrar">✕</button>
+      <div class="demo-layout">
+        <div class="video-col">
+          <div class="video-wrap">
+            <video id="video" autoplay playsinline webkit-playsinline muted></video>
+            <canvas id="overlay"></canvas>
+            <div id="roi" class="roi">Alinea tu frente aquí</div>
+          </div>
+          <div class="controls">
+            <div class="row">
+              <label for="cameraSelect">Cámara:</label>
+              <select id="cameraSelect"></select>
+              <button id="btnStart" class="primary">Iniciar</button>
+              <button id="btnStop" class="ghost" disabled>Detener</button>
+            </div>
+            <div class="row note">
+              <small>Usa luz frontal, evita moverte. Safari/Chrome móvil: requiere HTTPS o localhost.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="metrics-col">
+          <div class="kpis">
+            <div class="kpi">
+              <div class="label">Pulso</div>
+              <div class="value"><span id="hrVal">–</span><span class="unit">bpm</span></div>
+              <div class="pulse" id="pulseDot"></div>
+            </div>
+            <div class="kpi">
+              <div class="label">Estrés</div>
+              <div class="value"><span id="stressVal">–</span><span class="unit">/100</span></div>
+              <div id="stressBadge" class="badge">—</div>
+            </div>
+          </div>
+
+          <div class="pro-grid">
+            <div class="pro-card locked">
+              <div class="lock-text">Pro</div>
+              <div class="label">Respiración</div>
+              <div class="value">— <span class="unit">rpm</span></div>
+            </div>
+            <div class="pro-card locked">
+              <div class="lock-text">Pro</div>
+              <div class="label">HRV (RMSSD)</div>
+              <div class="value">— <span class="unit">ms</span></div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <a href="presentation.html" class="primary">Ver propuesta</a>
+            <span id="status" class="muted"></span>
+          </div>
+
+          <p class="demo-disclaimer">Procesamiento en tu dispositivo. No subimos el video.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // PWA: registra service worker si disponible
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(()=>{});
+      });
+    }
+  </script>
+</body>
+</html>

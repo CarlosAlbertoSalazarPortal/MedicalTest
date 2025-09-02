@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Presentación — Vitals Live</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="slide-shell">
+  <div class="slide-nav">
+    <div style="display:flex;align-items:center;gap:10px">
+      <img src="assets/logo.svg" alt="Logo" class="logo"/>
+      <strong>Vitals Live — Presentación</strong>
+    </div>
+    <div class="btns">
+      <a class="btn" href="index.html">Home</a>
+      <a class="btn primary" href="index.html">Abrir demo</a>
+    </div>
+  </div>
+
+  <section class="slide show" data-i="0">
+    <div class="content">
+      <h1>Signos vitales desde la cámara</h1>
+      <p>Monitoreo no invasivo, en tiempo real, para bienestar y rendimiento. Sin wearables.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-i="1">
+    <div class="content">
+      <h2>Problema</h2>
+      <p>Las empresas y apps de salud necesitan señales fisiológicas rápidas y sin fricción. Los wearables tienen costos, logística y adopción limitada.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-i="2">
+    <div class="content">
+      <h2>Solución</h2>
+      <p>rPPG (fotopletismografía remota): detectamos microcambios de color en la piel para estimar pulso y estrés — usando solo la cámara.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-i="3">
+    <div class="content">
+      <h2>Cómo funciona</h2>
+      <p>El algoritmo extrae una señal óptica de la frente/mejillas, la filtra en banda cardíaca y detecta latidos. Desde la variabilidad, estimamos el estrés.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-i="4">
+    <div class="content">
+      <h2>Demo controlada</h2>
+      <p>Mostramos <strong>Pulso</strong> y <strong>Estrés</strong>. Métricas “Pro” (RR, HRV avanzado, riesgo cardiovascular) quedan bloqueadas en esta demo.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-i="5">
+    <div class="content">
+      <h2>Mercados</h2>
+      <p>Wellness B2C, programas de bienestar corporativo, telerehabilitación no clínica, investigación UX, deportes.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-i="6">
+    <div class="content">
+      <h2>Modelo de negocio</h2>
+      <p>Licencia SDK + API Pro (por MAU o por dispositivo), marca blanca, y proyectos a medida con SLAs.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-i="7">
+    <div class="content">
+      <h2>Roadmap</h2>
+      <p>Detección facial automática, calidad de señal (SNR), respiración guiada, dashboards, integraciones (Apple/Google Health).</p>
+    </div>
+  </section>
+
+  <section class="slide" data-i="8">
+    <div class="content">
+      <h2>CTA</h2>
+      <p>¿Te interesa? Probemos un piloto. <a href="index.html">Abrir demo</a></p>
+    </div>
+  </section>
+
+  <div class="dotbar" id="dotbar"></div>
+
+  <script>
+    // Simple slide controller
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dotbar = document.getElementById('dotbar');
+
+    function renderDots(i){
+      dotbar.innerHTML = '';
+      slides.forEach((_, idx)=>{
+        const d=document.createElement('div'); d.className='dot'+(idx===i?' active':'');
+        dotbar.appendChild(d);
+      });
+    }
+
+    let i = 0; renderDots(i);
+    function show(n){
+      i = (n+slides.length)%slides.length;
+      slides.forEach((s,idx)=> s.classList.toggle('show', idx===i));
+      renderDots(i);
+    }
+    document.addEventListener('keydown', (e)=>{
+      if (e.key==='ArrowRight' || e.key==='PageDown') show(i+1);
+      if (e.key==='ArrowLeft'  || e.key==='PageUp') show(i-1);
+    });
+    document.addEventListener('click', (e)=>{
+      if (e.target.classList.contains('dot')){
+        const idx = Array.from(dotbar.children).indexOf(e.target);
+        if (idx>=0) show(idx);
+      }
+    });
+  </script>
+</body>
+</html>
