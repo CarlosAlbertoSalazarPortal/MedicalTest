@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenVitals Live Demo</title>
+  <meta name="description" content="Try the OpenVitals camera-based vital sign monitor directly in your browser." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="demo-page">
+  <header class="demo-header">
+    <div class="demo-brand">
+      <span class="demo-name">OpenVitals Monitor</span>
+      <span class="demo-sub">Live camera demo</span>
+    </div>
+    <a class="ghost" href="index.html">← Back to overview</a>
+  </header>
+
+  <main>
+    <section class="demo-intro">
+      <h1>Run the camera vitals capture</h1>
+      <p>Allow camera access, align your forehead with the overlay and remain still for 20 seconds while the signal stabilises. Metrics update continuously once a clean pulse is detected.</p>
+      <ul>
+        <li>Works best in bright, even front lighting.</li>
+        <li>Keep your head centred and reduce movement.</li>
+        <li>Use Chrome, Edge or Safari over HTTPS or localhost.</li>
+      </ul>
+    </section>
+
+    <section class="demo-panel">
+      <div class="demo-layout">
+        <div class="video-col">
+          <div class="video-wrap">
+            <video id="video" autoplay playsinline webkit-playsinline muted></video>
+            <canvas id="overlay"></canvas>
+            <div id="roi" class="roi">Align your forehead here</div>
+          </div>
+          <div class="controls">
+            <div class="row">
+              <label for="cameraSelect">Camera</label>
+              <select id="cameraSelect"></select>
+              <button id="btnStart" class="primary">Start</button>
+              <button id="btnStop" class="ghost" disabled>Stop</button>
+            </div>
+            <div class="row note">
+              <small>Video never leaves the browser. Permissions are only used locally.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="metrics-col">
+          <div class="kpis">
+            <div class="kpi">
+              <div class="label">Heart rate</div>
+              <div class="value"><span id="hrVal">–</span><span class="unit">bpm</span></div>
+              <div class="pulse" id="pulseDot"></div>
+            </div>
+            <div class="kpi">
+              <div class="label">Stress index</div>
+              <div class="value"><span id="stressVal">–</span><span class="unit">/100</span></div>
+              <div id="stressBadge" class="badge">—</div>
+            </div>
+            <div class="kpi">
+              <div class="label">RMSSD</div>
+              <div class="value"><span id="hrvVal">–</span><span class="unit">ms</span></div>
+            </div>
+            <div class="kpi">
+              <div class="label">Respiration</div>
+              <div class="value"><span id="rrVal">–</span><span class="unit">rpm</span></div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <span id="status" class="muted"></span>
+            <span id="quality" class="badge subtle">Signal quality: —</span>
+          </div>
+
+          <p class="demo-disclaimer">For wellness and research use only. This experience is not a medical device.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="demo-footer">
+    <small>&copy; OpenVitals demo. Built for educational purposes.</small>
+  </footer>
+
+  <script type="module" src="demo.js"></script>
+</body>
+</html>

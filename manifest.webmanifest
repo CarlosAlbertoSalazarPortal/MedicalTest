@@ -1,9 +1,9 @@
 {
-  "name": "Vitals Live Demo",
-  "short_name": "Vitals",
+  "name": "OpenVitals Monitor",
+  "short_name": "OpenVitals",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
   "icons": []
 }
